@@ -168,7 +168,7 @@ app.put("/products/:id", async (req, res) => {
 });
 
 // Method to delete a product.
-app.delete("/products/:id", async (req, res) => {
+app.delete("/product/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findByIdAndDelete(id);
