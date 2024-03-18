@@ -33,6 +33,21 @@ const employeeSingupSchema = mongoose.Schema({
     type: Number,
     required: false,
   },
+
+  totalReviews: {
+    type: Number,
+    required: false,
+  },
+
+  totalNegativeReviews: {
+    type: Number,
+    required: false,
+  },
+
+  totalPositiveReviews: {
+    type: Number,
+    required: false,
+  }
 });
 
 const EmployeeSignUp = mongoose.model("employeeSingup", employeeSingupSchema);

@@ -27,6 +27,21 @@ const productSchema = mongoose.Schema(
       required: false,
       default: 0,
     },
+
+    totalReviews: {
+      type: Number,
+      required: false,
+    },
+  
+    totalNegativeReviews: {
+      type: Number,
+      required: false,
+    },
+  
+    totalPositiveReviews: {
+      type: Number,
+      required: false,
+    }
   },
 
   {
