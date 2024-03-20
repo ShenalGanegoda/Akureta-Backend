@@ -20,6 +20,8 @@ const ManagerController = {
 
  // Manager login
 
+
+
 login: async (req, res) => {
     try {
       const { managerEmail, password } = req.body;
@@ -40,6 +42,31 @@ login: async (req, res) => {
       res.json({ token });
     } catch (error) {
       console.error("Error logging in Manager:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
+  // Get information about a Manager by its ID
+  getManagerById: async (req, res) => {
+    try {
+      const manager = await Manager.findById(req.params.id);
+      if (!manager) {
+        return res.status(404).json({ message: "Manager not found" });
+      }
+      res.json(manager);
+    } catch (error) {
+      console.error("Error getting Manager by ID:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
+  // Get all Managers
+  getAllManagers: async (req, res) => {
+    try {
+      const managers = await Manager.find();
+      res.json(managers);
+    } catch (error) {
+      console.error("Error getting all Managers:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   },
