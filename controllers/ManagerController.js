@@ -70,6 +70,36 @@ login: async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   },
-  
 
-}
+  // Delete a Manager by its ID
+  deleteManagerById: async (req, res) => {
+    try {
+      const deletedManager = await Manager.findByIdAndDelete(req.params.id);
+      if (!deletedManager) {
+        return res.status(404).json({ message: "Manager not found" });
+      }
+      res.json({ message: "Manager deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting Manager by ID:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
+  // Update a Manager by its ID
+  updateManagerById: async (req, res) => {
+    try {
+      const updatedManager = await Manager.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!updatedManager) {
+        return res.status(404).json({ message: "Manager not found" });
+      }
+      res.json(updatedManager);
+    } catch (error) {
+      console.error("Error updating Manager by ID:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+};
+
+module.exports = ManagerController;
+
+  
