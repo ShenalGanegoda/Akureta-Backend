@@ -1,9 +1,13 @@
 const express = require("express"); // Creating express application using express package
 const app = express(); // Storing the application in app variable
 const cors = require("cors"); // "CORS" middleware to enable CORS
-
+const path = require("path")
+const bodyParser = require("body-parser");
+const db_connection = require("./database/index");
+require('dotenv').config();
 const mongoose = require("mongoose"); // Creating mongoose varible using mongoose package
 
+const PORT = process.env.PORT || 3001
 app.use(express.json()); // Convincing the app to understand JSON.
 app.use(express.urlencoded({ extended: false })); // Defining the use of middleware function
 app.use(cors()); // Enabling CORS for all routes
@@ -15,7 +19,9 @@ const EmployeeSignUp = require("./models/employeeSignupModel"); // Importing the
 //Routes
 //Routes for Employee-singup collection.
 
+app.use(bodyParser.json());
 //Method to save employee signup details in the database.
+db_connection()
 app.post("/employeesignup", async (req, res) => {
   try {
     const employeeSignup = await EmployeeSignUp.create(req.body);
@@ -200,7 +206,13 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
+  app.use("/servers", serverRoutes)
+  app.use("/customers", customerRoutes)
+  app.use("/managers", managerRoutes)
+  
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
+})
 
 
   
